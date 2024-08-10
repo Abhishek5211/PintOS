@@ -165,7 +165,7 @@ ready_list: Manages threads that are ready to be executed.
 sleeping_list: Manages threads that are sleeping.
 Enqueue:
 
-#####Function 
+####Function 
 thread_sleep_until(int64_t ticks_end)
 Purpose: Puts the thread to sleep until the specified ticks_end.
 Process:
@@ -174,7 +174,7 @@ Enqueues the thread in sleeping_list.
 Calls thread_block() to block the thread's execution.
 Timer Sleep Function:
 
-#####File: pintos/src/device/timer.c
+File: pintos/src/device/timer.c
 Function: timer_sleep(int64_t ticks)
 Process:
 Disables interrupts.
@@ -182,9 +182,10 @@ Adds the current thread to the sleeping_list.
 Sets the thread's endTicks.
 Calls sema_down(&thread_current()->sleep_Sem) to put the thread to sleep.
 Re-enables interrupts.
+
 Dequeue:
 
-#####File: timer_interrupt in timer.c
+File: timer_interrupt in timer.c
 Purpose: Checks for threads that need to wake up on each timer tick.
 Process:
 The function thread_awake(int64_t current_tick) iterates through sleeping_list.
