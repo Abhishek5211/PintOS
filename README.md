@@ -37,6 +37,10 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install -y git qemu gcc make gdb
 ```
+Check if qemu is installed properly.
+```bash
+qemu-system-x86_64
+```
 
 ## Step 3: Clone the PintOS Repository
 
@@ -45,6 +49,18 @@ Clone the PintOS repository to your local machine:
 ```sh
 git clone https://github.com/abhishek5211/pintos.git
 cd pintos
+cp -r edited-pintos $HOME/pintos
+```
+Alternatively you can download zip file / clone the file in windows and copy to linux from windows folder. The linux file system is mounted on windows.
+![image](https://github.com/user-attachments/assets/e46ba878-160c-4683-893a-331aa1c5aa95)
+Copy the original-pintos folder from downloads and copy to the /home/[your-username] directory from Windows file explorer.
+![image](https://github.com/user-attachments/assets/26f6edd6-80e0-453b-8b1b-f439def51dc2)
+
+## Step 4: Setting up PintOS.
+
+Open the file pintos-gdb present in /home/[your-username]/os-pintos/pintos/src/utils and changed line number 4 to
+GDBMACROS=../misc/gdb-macros
+
 
 
 
