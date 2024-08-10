@@ -93,7 +93,9 @@ The output should look like this. If there are errors, there's is issue with GDB
 
 ## Final Changes in src/utils and QEMU linking
 Link qemu symbolic link
+```bash
 sudo ln -s /usr/bin/qemu-system-x86_64 /usr/bin/qemu
+```
 
 
 Open the file pintos present in the utils directory and change line number 103 to
@@ -138,8 +140,57 @@ If this error occurs, the pintos file is malformed at the given line. change lin
 ```bash
 pintos run alarm-multiple
 ```
-If you get never ending looping error, your pintOS is corrupted, time to get another OS.
+If you get a never-ending looping error, your pintOS is corrupted, time to get another OS. The current git or 
+this https://github.com/WyldeCat/pintos-anon.git will certainly work.
 ![image](https://github.com/user-attachments/assets/8da558bc-6aa1-4bcd-be4f-8762e078d784)
+
+At last export the path variable so you can call pintos from any directory. Add the following at the end of file.
+```bash
+sudo nano ~/.bashrc
+```
+export PATH=$HOME/pintos/src/utils:$PATH
+
+
+## PintOS Added Changes
+###Implementing a Wait Queue in PintOS
+###Objective
+Replace the existing busy-wait method with a wait queue. When a thread sleeps, it should enter the wait queue and later move to the ready queue to be executed after a specified time.
+
+###Implementation
+####Data Structures:
+
+ready_list: Manages threads that are ready to be executed.
+sleeping_list: Manages threads that are sleeping.
+Enqueue:
+
+#####Function 
+thread_sleep_until(int64_t ticks_end)
+Purpose: Puts the thread to sleep until the specified ticks_end.
+Process:
+Saves the endTicks information (current time + sleep time ticks).
+Enqueues the thread in sleeping_list.
+Calls thread_block() to block the thread's execution.
+Timer Sleep Function:
+
+#####File: pintos/src/device/timer.c
+Function: timer_sleep(int64_t ticks)
+Process:
+Disables interrupts.
+Adds the current thread to the sleeping_list.
+Sets the thread's endTicks.
+Calls sema_down(&thread_current()->sleep_Sem) to put the thread to sleep.
+Re-enables interrupts.
+Dequeue:
+
+#####File: timer_interrupt in timer.c
+Purpose: Checks for threads that need to wake up on each timer tick.
+Process:
+The function thread_awake(int64_t current_tick) iterates through sleeping_list.
+Threads with expired sleep times are removed from sleeping_list.
+Woken threads are added back to ready_list using thread_unblock()
+#### Result 
+The product of the iteration count and sleep duration appears in non-descending order.
+![image](https://github.com/user-attachments/assets/a8c97f98-62f5-4291-a3ab-6a6ea7ad671c)
 
 
 
