@@ -109,7 +109,16 @@ my $name = find_file (“../threads/build/kernel.bin”);
 ![image](https://github.com/user-attachments/assets/dc1e8b73-3523-4eb1-8587-465b79512276)
 
 
+Open the file Pintos.pm in the utils directory and change line number 362 to
 
+$name = find_file (“../threads/build/loader.bin”) if !defined $name;
+
+![image](https://github.com/user-attachments/assets/725d9b99-1945-4526-9afb-8f36ab5db197)
+
+In the same folder verify if pintos executes.
+```bash
+pintos run alarm-multiple
+```
 
 
 
