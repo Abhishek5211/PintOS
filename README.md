@@ -163,9 +163,11 @@ Replace the existing busy-wait method with a wait queue. When a thread sleeps, i
 
 ready_list: Manages threads that are ready to be executed.
 sleeping_list: Manages threads that are sleeping.
-Enqueue:
 
-#### Function 
+
+#### Enqueue:
+
+Function 
 thread_sleep_until(int64_t ticks_end)
 Purpose: Puts the thread to sleep until the specified ticks_end.
 
@@ -179,7 +181,7 @@ File: pintos/src/device/timer.c
 Function: timer_sleep(int64_t ticks)
 Process:
 Disables interrupts.
-Adds the current thread to the sleeping_list.
+Adds the current thread to the sleeping list.
 Sets the thread's endTicks.
 Calls sema_down(&thread_current()->sleep_Sem) to put the thread to sleep.
 Re-enables interrupts.
