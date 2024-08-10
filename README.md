@@ -154,26 +154,27 @@ export PATH=$HOME/pintos/src/utils:$PATH
 
 
 ## PintOS Added Changes
-###Implementing a Wait Queue in PintOS
-###Objective
+### Implementing a Wait Queue in PintOS
+### Objective
 Replace the existing busy-wait method with a wait queue. When a thread sleeps, it should enter the wait queue and later move to the ready queue to be executed after a specified time.
 
-###Implementation
-####Data Structures:
+### Implementation
+#### Data Structures:
 
 ready_list: Manages threads that are ready to be executed.
 sleeping_list: Manages threads that are sleeping.
 Enqueue:
 
-####Function 
+#### Function 
 thread_sleep_until(int64_t ticks_end)
 Purpose: Puts the thread to sleep until the specified ticks_end.
+
 Process:
 Saves the endTicks information (current time + sleep time ticks).
 Enqueues the thread in sleeping_list.
 Calls thread_block() to block the thread's execution.
-Timer Sleep Function:
 
+Timer Sleep Function:
 File: pintos/src/device/timer.c
 Function: timer_sleep(int64_t ticks)
 Process:
@@ -183,14 +184,14 @@ Sets the thread's endTicks.
 Calls sema_down(&thread_current()->sleep_Sem) to put the thread to sleep.
 Re-enables interrupts.
 
-Dequeue:
-
+#### Dequeue:
 File: timer_interrupt in timer.c
 Purpose: Checks for threads that need to wake up on each timer tick.
 Process:
 The function thread_awake(int64_t current_tick) iterates through sleeping_list.
 Threads with expired sleep times are removed from sleeping_list.
 Woken threads are added back to ready_list using thread_unblock()
+
 #### Result 
 The product of the iteration count and sleep duration appears in non-descending order.
 ![image](https://github.com/user-attachments/assets/a8c97f98-62f5-4291-a3ab-6a6ea7ad671c)
