@@ -38,5 +38,13 @@ sudo apt upgrade -y
 sudo apt install -y git qemu gcc make gdb
 ```
 
+## Step 3: Clone the PintOS Repository
+
+Clone the PintOS repository to your local machine:
+
+```sh
+git clone https://github.com/abhishek5211/pintos.git
+cd pintos
+
 
 
