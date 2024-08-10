@@ -1,7 +1,7 @@
 # PintOS
 #### Operating System CT[656] Case Study Assignment IOE 
 
-Developed at Stanford, PintOS is a straightforward operating system used for teaching-learning purposes. Mainstream Linux OS codes are complex, with  millions of lines of code of great complexity rendering them hard to study. PintOS is only of about 10000 codes and provides a barebone OS for students to learn the basics of OS concepts and implement their features and modules.
+Developed at Stanford, PintOS is a straightforward operating system used for teaching-learning purposes. Mainstream Linux OS codes are complex, with  millions of lines of code of great complexity rendering them hard to study. PintOS kernel is only of about 10000 lines of code and provides a barebone OS for students to learn the basics of OS concepts and implement features and modules on their own.
 
 # PintOS Installation Guide on WSL (Ubuntu) in Windows
 
