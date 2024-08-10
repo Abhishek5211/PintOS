@@ -58,8 +58,57 @@ Copy the original-pintos folder from downloads and copy to the /home/[your-usern
 
 ## Step 4: Setting up PintOS.
 
-Open the file pintos-gdb present in /home/[your-username]/os-pintos/pintos/src/utils and changed line number 4 to
+## Changes in src/utils 
+Open the file pintos-gdb present in /home/[your-username]/pintos/src/utils and changed line number 4 to
 GDBMACROS=../misc/gdb-macros
+I have used gedit for the editing purpose. The line number can be set visible by going to preferences option.
+![image](https://github.com/user-attachments/assets/2454c0dd-8d4e-4c36-806a-3e75a04c5b00)
+
+Open the Makefile in the utils directory and replaced line number 5 by
+LDLIBS = -lm
+![image](https://github.com/user-attachments/assets/b3445ebf-c77c-4129-92cb-e6bebbc8182b)
+
+Compile the utils folder
+```bash
+make
+```
+
+![image](https://github.com/user-attachments/assets/e3af20f5-a640-4b37-bc7d-c96f1ef47d1a)
+
+
+## Changes in src/threads
+
+Open the file Make.vars present in /home/[your-username]/pintos/src/threads and changed the last line to
+
+SIMULATOR = –qemu
+
+![image](https://github.com/user-attachments/assets/62a1560f-45a5-4004-87e4-a1c52035d8fe)
+
+Compile the threads folder
+```bash
+make
+```
+The output should look like this. If there are errors, there's is issue with GDB compiler.
+![image](https://github.com/user-attachments/assets/47408f69-e3c8-4a4c-a1f0-06dc6d5d03f4)
+
+## Final Changes in src/utils and QEMU linking
+Link qemu symbolic link
+sudo ln -s /usr/bin/qemu-system-x86_64 /usr/bin/qemu
+
+
+Open the file pintos present in the utils directory and change line number 103 to
+
+$sim = “qemu” if !defined $sim;
+
+![image](https://github.com/user-attachments/assets/f89d539a-1b2d-4881-bdee-30f4a079bda2)
+
+Since you've compiled the threads the kernel and loader resides in pintos/src/threads/build location.
+Change line number 259 to
+my $name = find_file (“../threads/build/kernel.bin”);
+
+![image](https://github.com/user-attachments/assets/dc1e8b73-3523-4eb1-8587-465b79512276)
+
+
 
 
 
