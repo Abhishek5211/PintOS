@@ -37,6 +37,109 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install -y git qemu gcc make gdb
 ```
+Check if qemu is installed properly.
+```bash
+qemu-system-x86_64
+```
+
+## Step 3: Clone the PintOS Repository
+
+Clone the PintOS repository to your local machine:
+
+```sh
+git clone https://github.com/abhishek5211/pintos.git
+cd pintos
+cp -r edited-pintos $HOME/pintos
+```
+Alternatively you can download zip file / clone the file in windows and copy to linux from windows folder. The linux file system is mounted on windows.
+![image](https://github.com/user-attachments/assets/e46ba878-160c-4683-893a-331aa1c5aa95)
+Copy the original-pintos folder from downloads and copy to the /home/[your-username] directory from Windows file explorer.
+![image](https://github.com/user-attachments/assets/26f6edd6-80e0-453b-8b1b-f439def51dc2)
+
+## Step 4: Setting up PintOS.
+
+## Changes in src/utils 
+Open the file pintos-gdb present in /home/[your-username]/pintos/src/utils and changed line number 4 to
+GDBMACROS=../misc/gdb-macros
+I have used gedit for the editing purpose. The line number can be set visible by going to preferences option.
+![image](https://github.com/user-attachments/assets/2454c0dd-8d4e-4c36-806a-3e75a04c5b00)
+
+Open the Makefile in the utils directory and replaced line number 5 by
+LDLIBS = -lm
+![image](https://github.com/user-attachments/assets/b3445ebf-c77c-4129-92cb-e6bebbc8182b)
+
+Compile the utils folder
+```bash
+make
+```
+
+![image](https://github.com/user-attachments/assets/e3af20f5-a640-4b37-bc7d-c96f1ef47d1a)
+
+
+## Changes in src/threads
+
+Open the file Make.vars present in /home/[your-username]/pintos/src/threads and changed the last line to
+
+SIMULATOR = –qemu
+
+![image](https://github.com/user-attachments/assets/62a1560f-45a5-4004-87e4-a1c52035d8fe)
+
+Compile the threads folder
+```bash
+make
+```
+The output should look like this. If there are errors, there's is issue with GDB compiler.
+![image](https://github.com/user-attachments/assets/47408f69-e3c8-4a4c-a1f0-06dc6d5d03f4)
+
+## Final Changes in src/utils and QEMU linking
+Link qemu symbolic link
+sudo ln -s /usr/bin/qemu-system-x86_64 /usr/bin/qemu
+
+
+Open the file pintos present in the utils directory and change line number 103 to
+
+$sim = “qemu” if !defined $sim;
+
+![image](https://github.com/user-attachments/assets/f89d539a-1b2d-4881-bdee-30f4a079bda2)
+
+Since you've compiled the threads the kernel and loader resides in pintos/src/threads/build location.
+Change line number 259 to
+my $name = find_file (“../threads/build/kernel.bin”);
+
+![image](https://github.com/user-attachments/assets/dc1e8b73-3523-4eb1-8587-465b79512276)
+
+
+Open the file Pintos.pm in the utils directory and change line number 362 to
+
+$name = find_file (“../threads/build/loader.bin”) if !defined $name;
+
+![image](https://github.com/user-attachments/assets/34d4c48a-98bf-42e0-9ba7-c5e0ada2b0f7)
+
+
+In the same folder verify if pintos executes.
+```bash
+pintos run alarm-multiple
+```
+![image](https://github.com/user-attachments/assets/84d07803-e9d6-4cfd-8275-5748e1195aac)
+
+If you've encountered this permission denied error. Congratulations you've to suffer more!!
+
+```bash
+sudo chmod +x pintos
+```
+
+![image](https://github.com/user-attachments/assets/e7f7c7fe-87af-4003-a23d-a073eb77e47f)
+
+If this error occurs, the pintos file is malformed at the given line. change line 916 with
+
+	if ($^V ge 5.8.0) {
+![image](https://github.com/user-attachments/assets/6cd7b9d0-3eff-4e09-89b1-a8c21e30b657)
+
+```bash
+pintos run alarm-multiple
+```
+If you get never ending looping error, your pintOS is corrupted, time to get another OS.
+![image](https://github.com/user-attachments/assets/8da558bc-6aa1-4bcd-be4f-8762e078d784)
 
 
 
