@@ -113,12 +113,33 @@ Open the file Pintos.pm in the utils directory and change line number 362 to
 
 $name = find_file (“../threads/build/loader.bin”) if !defined $name;
 
-![image](https://github.com/user-attachments/assets/725d9b99-1945-4526-9afb-8f36ab5db197)
+![image](https://github.com/user-attachments/assets/34d4c48a-98bf-42e0-9ba7-c5e0ada2b0f7)
+
 
 In the same folder verify if pintos executes.
 ```bash
 pintos run alarm-multiple
 ```
+![image](https://github.com/user-attachments/assets/84d07803-e9d6-4cfd-8275-5748e1195aac)
+
+If you've encountered this permission denied error. Congratulations you've to suffer more!!
+
+```bash
+sudo chmod +x pintos
+```
+
+![image](https://github.com/user-attachments/assets/e7f7c7fe-87af-4003-a23d-a073eb77e47f)
+
+If this error occurs, the pintos file is malformed at the given line. change line 916 with
+
+	if ($^V ge 5.8.0) {
+![image](https://github.com/user-attachments/assets/6cd7b9d0-3eff-4e09-89b1-a8c21e30b657)
+
+```bash
+pintos run alarm-multiple
+```
+If you get never ending looping error, your pintOS is corrupted, time to get another OS.
+![image](https://github.com/user-attachments/assets/8da558bc-6aa1-4bcd-be4f-8762e078d784)
 
 
 
